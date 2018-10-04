@@ -4,22 +4,11 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const sassMiddleware = require('node-sass-middleware');
-const { Pool } = require('pg');
-
+const { db } = require('./db/db');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 
-const pool = new Pool();
-
-
-pool.query('SELECT table_schema,table_name FROM information_schema.tables;', (err, res) => {
-  if (err) throw err;
-  for (let row of res.rows) {
-    console.log(JSON.stringify(row));
-  }
-  pool.end();
-});
 
 const app = express();
 
